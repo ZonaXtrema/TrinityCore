@@ -4746,6 +4746,14 @@ void Spell::EffectLeapBack(SpellEffIndex effIndex)
     //1891: Disengage
     unitTarget->JumpTo(speedxy, speedz, m_spellInfo->SpellIconID != 1891);
 
+	/* TOC 5 */
+   //4022: Rolling Throw
+    unitTarget->JumpTo(speedxy, speedz, (m_spellInfo->SpellIconID != 1891 && m_spellInfo->SpellIconID != 4022));
+	if (m_spellInfo->SpellIconID == 4022) {
+		unitTarget->JumpTo(speedxy, speedz);
+	}
+	/* TOC 5 / END*/
+
     // changes fall time
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
         m_caster->ToPlayer()->SetFallInformation(0, m_caster->GetPositionZ());
