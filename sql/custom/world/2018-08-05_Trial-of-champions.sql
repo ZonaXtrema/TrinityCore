@@ -399,12 +399,12 @@ INSERT INTO `spell_linked_spell` (`spell_trigger`,`spell_effect`,`type`,`comment
 
 SET @KNIGHT         := 35451;
 SET @KNIGHT_H       := 35490;
-SET @KNIGHT_VEHICLE := 35491;
+-- SET @KNIGHT_VEHICLE := 35491;
 SET @RISEN_CHAMP    := 35590;
 SET @RISEN_CHAMP_H  := 35717;
 
 -- The Black Knight's vehicle must have flight inhabit type
-UPDATE `creature_template` SET `InhabitType`=7 WHERE `entry`=@KNIGHT_VEHICLE;
+-- UPDATE `creature_template` SET `InhabitType`=7 WHERE `entry`=@KNIGHT_VEHICLE;
 
 -- Risen Champion is missing scriptname
 UPDATE `creature_template` SET `ScriptName`='npc_risen_ghoul' WHERE `entry`=@RISEN_CHAMP;
