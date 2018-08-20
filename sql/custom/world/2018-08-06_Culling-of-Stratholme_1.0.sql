@@ -10,6 +10,7 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`,`
 -- Chromie AI
 UPDATE `creature_template` SET `ScriptName`="npc_chromie_start" WHERE `entry`=26527;
 UPDATE `creature_template` SET `ScriptName`="npc_chromie_middle" WHERE `entry`=27915;
+
 -- Chromie whispers
 DELETE FROM `creature_text` WHERE `creatureid`=27915 AND `groupid`=1;
 INSERT INTO `creature_text` (`creatureid`,`groupid`,`id`,`text`,`type`,`probability`,`BroadcastTextId`,`TextRange`,`emote`,`comment`) VALUES
@@ -244,7 +245,7 @@ INSERT INTO `creature_text` (`creatureid`,`groupid`,`text`,`type`,`probability`,
 DELETE FROM `creature` WHERE `guid` BETWEEN 143949 AND 143952;
 
 -- Get rid of the colossal mess that is Risen Zombie SmartAI
-UPDATE `creature_template` SET `ScriptName`="npc_stratholme_fluff_undead",`AIName`="" WHERE `entry` = 27737;
+-- UPDATE `creature_template` SET `ScriptName`="npc_stratholme_fluff_undead",`AIName`="" WHERE `entry` = 27737;
 DELETE FROM `smart_scripts` WHERE -`entryorguid` IN (SELECT `guid` FROM `creature` WHERE `id`=27737 AND `map`=595);
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId`=22 AND -`SourceEntry` IN (SELECT `guid` FROM `creature` WHERE `id`=27737 AND `map`=595);
 
@@ -253,6 +254,7 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`,`
 (@CGUID+01, 28340, 595, 3, 1, 2398.715, 1207.334, 134.1223, 5.270895, @DAY, 0, 0),
 (@CGUID+02, 28340, 595, 3, 1, 2401.265, 1202.789, 134.1039, 1.466077, @DAY, 0, 0),
 (@CGUID+03, 28341, 595, 3, 1, 2402.654, 1205.786, 134.1223, 2.897247, @DAY, 0, 0);
+
 UPDATE `creature_template` SET `unit_flags`=(`unit_flags`|0x100|0x200) WHERE `entry` IN (27742,27743,27744,31202,31203,31206,26532,31215,26533);
 
 -- Town Hall RP event
@@ -283,8 +285,6 @@ INSERT INTO `conditions` (`sourcetypeorreferenceid`,`sourcegroup`,`sourceentry`,
 DELETE FROM `creature_template_addon` WHERE `entry`=30997;
 INSERT INTO `creature_template_addon` (`entry`,`bytes1`) VALUES
 (30997,50331648);
-
-UPDATE `creature_template` SET `npcflag`=0 WHERE `entry`=30997;
 
 DELETE FROM `creature_template_movement` WHERE `CreatureId` = 30997; 
 INSERT INTO `creature_template_movement` (`CreatureId`, `Flight`, `Rooted`) VALUES (30997, 2, 1);
