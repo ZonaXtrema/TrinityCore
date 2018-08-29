@@ -17,6 +17,7 @@
 
 #include "Creature.h"
 #include "CreatureAI.h"
+#include "CreatureGroups.h"
 #include "MotionMaster.h"
 #include "Player.h"
 #include "ThreatManager.h"
@@ -107,7 +108,9 @@ bool ThreatReference::ShouldBeSuppressed() const
 {
     if (_victim->IsImmunedToDamage(_owner->GetMeleeDamageSchoolMask()))
         return true;
-    if (_victim->HasBreakableByDamageCrowdControlAura())
+    if (_victim->HasAuraType(SPELL_AURA_MOD_CONFUSE))
+        return true;
+    if (_victim->HasBreakableByDamageAuraType(SPELL_AURA_MOD_STUN))
         return true;
     return false;
 }
@@ -383,6 +386,8 @@ void ThreatManager::AddThreat(Unit* target, float amount, SpellInfo const* spell
         SaveCreatureHomePositionIfNeed(cOwner);
         if (CreatureAI* ownerAI = cOwner->AI())
             ownerAI->JustEngagedWith(target);
+        if (CreatureGroup* formation = cOwner->GetFormation())
+            formation->MemberEngagingTarget(cOwner, target);
     }
 }
 
